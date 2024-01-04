@@ -13,9 +13,8 @@ def pascal_triangle(n):
     # Generate other rows
     for i in range(1, n):
         row = [1]
-        for j in range(1, i):
-            row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
-
+        row.extend([triangle[i - 1][j - 1] + triangle[i - 1][j]
+                    for j in range(1, i)])
         row.append(1)
         triangle.append(row)
 
