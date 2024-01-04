@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 def print_pascal_triangle(triangle):
     for row in triangle:
-        print(" ".join(map(str, row)).center(len(triangle[-1]) * 2 - 1))
+        print(row)
 
 def pascal_triangle(n):
     if n <= 0:
@@ -14,8 +15,3 @@ def pascal_triangle(n):
         triangle.append(row)
 
     return triangle
-
-# Example usage:
-n = 5
-result = pascal_triangle(n)
-print_pascal_triangle(result)
