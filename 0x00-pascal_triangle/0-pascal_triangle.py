@@ -1,18 +1,22 @@
 #!/usr/bin/python3
-def print_pascal_triangle(triangle):
-    for row in triangle:
-        print(row)
+"""Pascal's Triangle"""
 
 
 def pascal_triangle(n):
+    """A function that returns a list of integers"""
     if n <= 0:
         return []
 
-    triangle = []
-    for i in range(n):
-        row = [1] * (i + 1)
+    # Intialize pascal's triangle with the first row
+    triangle = [[1]]
+
+    # Generate other rows
+    for i in range(1, n):
+        row = [1]
         for j in range(1, i):
-            row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j]
+            row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
+
+        row.append(1)
         triangle.append(row)
 
     return triangle
