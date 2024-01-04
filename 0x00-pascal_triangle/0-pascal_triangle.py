@@ -3,6 +3,7 @@ def print_pascal_triangle(triangle):
     for row in triangle:
         print(row)
 
+
 def pascal_triangle(n):
     if n <= 0:
         return []
