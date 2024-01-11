@@ -5,7 +5,7 @@
 def canUnlockAll(boxes):
     # Set to keep track of unlocked boxes
     unlocked_boxes = set([0])
-    
+
     # Queue to keep track of boxes to be checked
     box_queue = [0]
 
