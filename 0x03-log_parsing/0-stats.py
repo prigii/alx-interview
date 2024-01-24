@@ -1,50 +1,39 @@
 #!/usr/bin/python3
-""" Log parsing """
+"""
+Log parsing
+"""
 
 import sys
 
+if __name__ == '__main__':
 
-def parse_line(line):
-    try:
-        parts = line.split()
-        ip_address = parts[0]
-        status_code = int(parts[-2])
-        file_size = int(parts[-1])
-        return ip_address, status_code, file_size
-    except (ValueError, IndexError):
-        return None, None, None
+    filesize, count = 0, 0
+    codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    stats = {k: 0 for k in codes}
 
-
-def print_statistics(total_file_size, lines_by_status):
-    print(f"Total file size: {total_file_size}")
-    for status_code in sorted(lines_by_status):
-        print(f"{status_code}: {lines_by_status[status_code]}")
-
-
-def main():
-    total_file_size = 0
-    lines_by_status = {}
+    def print_stats(stats: dict, file_size: int) -> None:
+        print("File size: {:d}".format(filesize))
+        for k, v in sorted(stats.items()):
+            if v:
+                print("{}: {}".format(k, v))
 
     try:
-        for i, line in enumerate(sys.stdin, start=1):
-            ip_address, status_code, file_size = parse_line(line.strip())
-
-            if ip_address is None:
-                continue
-
-            total_file_size += file_size
-            lines_by_status[status_code] = lines_by_status.get(status_code, 0)
-            + 1
-
-            if i % 10 == 0:
-                print_statistics(total_file_size, lines_by_status)
-
+        for line in sys.stdin:
+            count += 1
+            data = line.split()
+            try:
+                status_code = data[-2]
+                if status_code in stats:
+                    stats[status_code] += 1
+            except BaseException:
+                pass
+            try:
+                filesize += int(data[-1])
+            except BaseException:
+                pass
+            if count % 10 == 0:
+                print_stats(stats, filesize)
+        print_stats(stats, filesize)
     except KeyboardInterrupt:
-        pass  # Handle KeyboardInterrupt (Ctrl+C)
-
-    finally:
-        print_statistics(total_file_size, lines_by_status)
-
-
-if __name__ == "__main__":
-    main()
+        print_stats(stats, filesize)
+        raise
