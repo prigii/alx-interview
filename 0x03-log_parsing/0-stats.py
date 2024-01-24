@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+""" Log parsing """
+
 import sys
+
 
 def parse_line(line):
     try:
@@ -11,10 +14,12 @@ def parse_line(line):
     except (ValueError, IndexError):
         return None, None, None
 
+
 def print_statistics(total_file_size, lines_by_status):
     print(f"Total file size: {total_file_size}")
     for status_code in sorted(lines_by_status):
         print(f"{status_code}: {lines_by_status[status_code]}")
+
 
 def main():
     total_file_size = 0
@@ -28,7 +33,8 @@ def main():
                 continue
 
             total_file_size += file_size
-            lines_by_status[status_code] = lines_by_status.get(status_code, 0) + 1
+            lines_by_status[status_code] = lines_by_status.get(status_code, 0)
+            + 1
 
             if i % 10 == 0:
                 print_statistics(total_file_size, lines_by_status)
@@ -38,6 +44,7 @@ def main():
 
     finally:
         print_statistics(total_file_size, lines_by_status)
+
 
 if __name__ == "__main__":
     main()
