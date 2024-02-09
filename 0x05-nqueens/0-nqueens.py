@@ -2,7 +2,7 @@
 import sys
 
 """
-Solving the N queens puzzle 
+Solving the N queens puzzle
 """
 
 
@@ -24,6 +24,7 @@ def is_safe(board, row, col, n):
 
     return True
 
+
 def solve_nqueens_util(board, col, n):
     if col >= n:
         print_solution(board)
@@ -37,6 +38,7 @@ def solve_nqueens_util(board, col, n):
             board[i][col] = 0  # backtrack
 
     return res
+
 
 def solve_nqueens(n):
     if not n.isdigit():
@@ -54,12 +56,14 @@ def solve_nqueens(n):
     if not solve_nqueens_util(board, 0, n):
         print("No solution found")
 
+
 def print_solution(board):
     solution = []
     for i in range(len(board)):
         queen_pos = [i, board[i].index(1)]
         solution.append(queen_pos)
     print(solution)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
