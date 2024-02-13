@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/node
 // Display one character name per line in the same
 // order as the “characters” list in the /films/ endpoint
 
