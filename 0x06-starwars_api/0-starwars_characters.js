@@ -1,6 +1,4 @@
 #!/usr/bin/node
-// Display one character name per line in the same
-// order as the “characters” list in the /films/ endpoint
 
 const request = require('request');
 
@@ -18,7 +16,7 @@ request(apiUrl, function (error, response, body) {
             const characterData = JSON.parse(body);
             resolve(characterData.name);
           } else {
-            reject(`Error: Failed to fetch character data for ${characterUrl}`);
+            reject(new Error(`Failed to fetch character data for ${characterUrl}`));
           }
         });
       });
@@ -30,7 +28,7 @@ request(apiUrl, function (error, response, body) {
         });
       })
       .catch(error => {
-        console.error('Error:', error);
+        console.error('Error:', error.message);
       });
   } else {
     console.error('Failed to fetch film data:', error);
